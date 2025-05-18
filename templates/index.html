@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Smart Light Configuration</title>
+<style>
+  body { font-family: Arial, sans-serif; max-width: 600px; margin: 30px auto; }
+  label { display: block; margin-top: 15px; }
+  select, input { width: 100%; padding: 8px; margin-top: 5px; }
+  button { margin-top: 20px; padding: 10px 20px; font-size: 1rem; cursor: pointer; }
+</style>
+</head>
+<body>
+  <h1>Smart Light Control Configuration</h1>
+  <form method="POST" action="/">
+    <label for="mode">Mode</label>
+    <select name="mode" id="mode" required>
+      <option value="motion" {{ 'selected' if config['mode'] == 'motion' else '' }}>Motion</option>
+      <option value="time" {{ 'selected' if config['mode'] == 'time' else '' }}>Time</option>
+    </select>
+
+    <label for="minutes">Minutes (for time mode)</label>
+    <input type="number" name="minutes" id="minutes" min="1" value="{{ config['minutes'] }}" required />
+
+    <label for="start_action">Starting Brightness</label>
+    <select name="start_action" id="start_action" required>
+      <option value="off" {{ 'selected' if config['start_action'] == 'off' else '' }}>Off</option>
+      <option value="dim" {{ 'selected' if config['start_action'] == 'dim' else '' }}>Dim</option>
+      <option value="on" {{ 'selected' if config['start_action'] == 'on' else '' }}>On</option>
+    </select>
+
+    <label for="motion_action">Brightness When Motion Detected</label>
+    <select name="motion_action" id="motion_action" required>
+      <option value="dim" {{ 'selected' if config['motion_action'] == 'dim' else '' }}>Dim</option>
+      <option value="on" {{ 'selected' if config['motion_action'] == 'on' else '' }}>On</option>
+    </select>
+
+    <label for="end_action">Brightness When Time Ends / No Motion</label>
+    <select name="end_action" id="end_action" required>
+      <option value="off" {{ 'selected' if config['end_action'] == 'off' else '' }}>Off</option>
+      <option value="dim" {{ 'selected' if config['end_action'] == 'dim' else '' }}>Dim</option>
+    </select>
+
+    <button type="submit">Save Configuration</button>
+  </form>
+</body>
+</html>
